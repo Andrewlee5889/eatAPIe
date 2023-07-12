@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "dotenv/load"
 require_relative "eatAPIe/version"
 require_relative "eatAPIe/restful_api/rest_api"
 require_relative "eatAPIe/restful_api/rest_consumer"

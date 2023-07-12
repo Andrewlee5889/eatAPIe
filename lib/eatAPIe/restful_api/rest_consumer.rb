@@ -8,9 +8,8 @@ module EatAPIe
         # parse and load restful_eatAPIes.yml
         return false unless @apis = YAML.load_file("restful_eatAPIes.yml")[name]
 
-        @api_key = @apis["api_key"]
         @content_type = @apis["content_type"]
-        @auth_header = @apis["auth_header"]
+        @auth_header = formatted_auth_header(@apis["auth_header"])
         @client = EatAPIe::RestfulApi::RestApi.new(root_url: @apis["root_url"])
 
         @apis["endpoints"].each do |action, endpoints|
@@ -59,6 +58,12 @@ module EatAPIe
 
       def headers
         { 'Content-Type': @content_type, 'Authorization': @auth_header, "User-Agent" => "Faraday v1.0.1" }
+      end
+
+      def formatted_auth_header(auth_header = "")
+        auth_header.scan(/{(\w*?)}/).flatten.each do |api_key|
+          auth_header.gsub!(/\{#{api_key}\}/, ENV[api_key]) if api_key && ENV[api_key]
+        end
       end
     end
   end
