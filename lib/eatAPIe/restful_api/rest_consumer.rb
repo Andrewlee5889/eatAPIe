@@ -18,17 +18,43 @@ module EatAPIe
           when "GET"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.get(endpoint: endpoint, headers: headers, url_params: args["url_params"], body: args["body"])
+                @client.get(endpoint: formatted_endpoint(endpoint, args), headers: headers, url_params: args["url_params"], body: args["body"])
               end
             end
           when "POST"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.post(endpoint: endpoint, headers: headers, body: args["body"])
+                @client.post(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+              end
+            end
+          when "PUT"
+            endpoints.each do |method, endpoint|
+              define_singleton_method method do |args = {}|
+                @client.put(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+              end
+            end
+          when "PATCH"
+            endpoints.each do |method, endpoint|
+              define_singleton_method method do |args = {}|
+                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+              end
+            end
+          when "DELETE"
+            endpoints.each do |method, endpoint|
+              define_singleton_method method do |args = {}|
+                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
               end
             end
           end
         end
+      end
+
+      def formatted_endpoint(endpoint = "", args = {})
+        endpoint.scan(/{(\w*?)}/).flatten.each do |param|
+          endpoint.gsub!(/\{#{param}\}/, args[param.to_sym].to_s) if args[param.to_sym]
+        end
+
+        endpoint
       end
 
       def headers

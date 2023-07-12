@@ -1,7 +1,14 @@
 publicapis:
   root_url: 'https://api.publicapis.org/'
-  api_key: ''
   endpoints:
     GET:
       blah: entries
       bleh: entries
+open_ai:
+  root_url: 'https://api.openai.com/v1/'
+  auth_header: 'Bearer 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'
+  content_type: 'application/json'
+  endpoints:
+    GET:
+      models: models
+      model: models/{model_id}/
