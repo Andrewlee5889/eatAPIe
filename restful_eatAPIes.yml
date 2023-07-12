@@ -6,7 +6,7 @@ publicapis:
       bleh: entries
 open_ai:
   root_url: 'https://api.openai.com/v1/'
-  auth_header: 'Bearer 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'
+  auth_header: <%= 'Bearer ' + ENV['OPEN_AI_API_KEY'] %>
   content_type: 'application/json'
   endpoints:
     GET:
