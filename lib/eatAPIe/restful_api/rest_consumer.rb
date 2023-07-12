@@ -64,6 +64,8 @@ module EatAPIe
         auth_header.scan(/{(\w*?)}/).flatten.each do |api_key|
           auth_header.gsub!(/\{#{api_key}\}/, ENV[api_key]) if api_key && ENV[api_key]
         end
+
+        auth_header
       end
     end
   end
