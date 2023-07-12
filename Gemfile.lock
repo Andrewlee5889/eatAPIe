@@ -6,7 +6,16 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    coderay (1.1.3)
     diff-lcs (1.5.0)
+    faraday (2.7.10)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
+    method_source (1.0.0)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     rake (13.0.6)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -21,12 +30,15 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
+    ruby2_keywords (0.0.5)
 
 PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
   eatAPIe!
+  faraday
+  pry
   rake (~> 13.0)
   rspec (~> 3.0)
 

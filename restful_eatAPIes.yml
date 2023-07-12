@@ -1,0 +1,7 @@
+publicapis:
+  root_url: 'https://api.publicapis.org/'
+  api_key: ''
+  endpoints:
+    GET:
+      blah: entries
+      bleh: entries
