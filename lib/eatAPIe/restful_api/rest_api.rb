@@ -1,4 +1,5 @@
 require "faraday"
+require "pry"
 
 module EatAPIe
   module RestfulApi
@@ -16,7 +17,6 @@ module EatAPIe
           req.params = url_params if url_params
           req.headers = headers if headers
         end
-
         json_body(response)
       end
 
@@ -49,7 +49,11 @@ module EatAPIe
       end
 
       def json_body(response)
-        JSON.parse(response.body)
+        if response.headers.to_hash["content-type"].include?("json")
+          JSON.parse(response.body)
+        else
+          response.body
+        end
       end
     end
   end

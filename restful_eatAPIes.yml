@@ -12,3 +12,13 @@ open_ai:
     GET:
       models: models
       model: models/{model_id}/
+cat:
+  root_url: 'https://catfact.ninja/'
+  endpoints:
+    GET:
+      fact: fact
+ipify:
+  root_url: 'https://api.ipify.org/'
+  endpoints:
+    GET:
+      json: ''

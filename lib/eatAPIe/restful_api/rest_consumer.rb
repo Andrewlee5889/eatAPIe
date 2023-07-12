@@ -17,31 +17,31 @@ module EatAPIe
           when "GET"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.get(endpoint: formatted_endpoint(endpoint, args), headers: headers, url_params: args["url_params"], body: args["body"])
+                @client.get(endpoint: formatted_endpoint(endpoint, args), headers: headers, url_params: args[:url_params], body: args[:body])
               end
             end
           when "POST"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.post(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+                @client.post(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args[:body])
               end
             end
           when "PUT"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.put(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+                @client.put(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args[:body])
               end
             end
           when "PATCH"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args[:body])
               end
             end
           when "DELETE"
             endpoints.each do |method, endpoint|
               define_singleton_method method do |args = {}|
-                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args["body"])
+                @client.patch(endpoint: formatted_endpoint(endpoint, args), headers: headers, body: args[:body])
               end
             end
           end
@@ -61,11 +61,13 @@ module EatAPIe
       end
 
       def formatted_auth_header(auth_header = "")
-        auth_header.scan(/{(\w*?)}/).flatten.each do |api_key|
-          auth_header.gsub!(/\{#{api_key}\}/, ENV[api_key]) if api_key && ENV[api_key]
-        end
+        if auth_header
+          auth_header.scan(/{(\w*?)}/).flatten.each do |api_key|
+            auth_header.gsub!(/\{#{api_key}\}/, ENV[api_key]) if api_key && ENV[api_key]
+          end
 
-        auth_header
+          auth_header
+        end
       end
     end
   end
